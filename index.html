@@ -68,8 +68,6 @@
   .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:6vw;align-items:center;padding:8vh 6vw 12vh}
   .arch{position:relative;margin:0}
   .arch img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:999px 999px 20px 20px;filter:grayscale(1) contrast(1.05);transition:filter .9s ease,transform 1.2s cubic-bezier(.2,.8,.2,1)}
-  .arch-win{display:block;overflow:hidden;aspect-ratio:4/5;border-radius:999px 999px 20px 20px}
-  .arch .arch-win img{width:128.2%;max-width:none;height:auto;aspect-ratio:auto;object-fit:fill;border-radius:0;margin:-46.15% 0 0 -10.26%}
   .arch:hover img{filter:none;transform:scale(1.015)}
   .arch::before{content:"";position:absolute;inset:-14px -14px -14px 14px;border:1px solid rgba(10,10,10,.22);border-radius:999px 999px 24px 24px;z-index:-1}
   .arch figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
@@ -464,7 +462,7 @@
   <div class="tag"><span><b>02</b> — About me</span><span>Who I am</span></div>
   <div class="about-grid">
     <figure class="arch" data-hover>
-      <span class="arch-win"><img src="assets/album-01.webp" alt="Portrait of Pranithaa Pradeep" width="1100" height="1467"></span>
+      <img src="assets/pranithaa-portrait.webp" alt="Portrait of Pranithaa Pradeep" width="800" height="1120">
       <figcaption>Pranithaa Pradeep<span>CSBS · Aspiring Software Engineer</span></figcaption>
     </figure>
     <div class="about-copy">
