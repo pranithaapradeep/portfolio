@@ -831,8 +831,8 @@
       <label>Your email<input name="email" type="email" autocomplete="email" placeholder="priya@company.com"></label>
       <label>Message<textarea name="msg" rows="5" placeholder="Hi Pranithaa, I'd like to talk about…"></textarea></label>
       <p class="ct-err" id="ct-err" role="alert"></p>
-      <button type="submit" class="btn btn-fill">Open in my email app</button>
-      <p class="ct-note" id="ct-note">This opens your email app with the message ready to send to pranithaa910@gmail.com.</p>
+      <button type="submit" class="btn btn-fill" id="ct-send">Send message</button>
+      <p class="ct-note" id="ct-note" role="status">Your message goes straight to my inbox, and I'll reply by email.</p>
     </form>
   </div>
 </section>
@@ -1104,15 +1104,20 @@
   }));
   const f=document.getElementById('ct-form'), err=document.getElementById('ct-err'), note=document.getElementById('ct-note');
   f.addEventListener('input',()=>{err.textContent='';});
-  f.addEventListener('submit',e=>{
+  f.addEventListener('submit',async e=>{
     e.preventDefault();
     const n=f.name.value.trim(), em=f.email.value.trim(), m=f.msg.value.trim();
     if(!n){err.textContent='Enter your name.'; f.name.focus(); return;}
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent='Enter a valid email address.'; f.email.focus(); return;}
     if(!m){err.textContent='Write a short message.'; f.msg.focus(); return;}
-    const url='mailto:pranithaa910@gmail.com?subject='+encodeURIComponent('Portfolio enquiry from '+n)+'&body='+encodeURIComponent(m+'\n\n— '+n+' ('+em+')');
-    window.location.href=url;
-    note.textContent='Your email app should open with the message ready. If it doesn\'t, write to pranithaa910@gmail.com directly.';
+    const btn=document.getElementById('ct-send'); btn.disabled=true; btn.textContent='Sending…';
+    try{
+      const r=await fetch('https://formsubmit.co/ajax/pranithaa910@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:n,email:em,message:m,_subject:'Portfolio message from '+n,_template:'table',_replyto:em})});
+      const d=await r.json().catch(()=>({}));
+      if(!r.ok||String(d.success)==='false') throw new Error(d.message||'failed');
+      f.reset(); note.textContent='Message sent. Thank you, I\'ll get back to you soon.';
+    }catch(x){ err.textContent='Couldn\'t send right now. Please email pranithaa910@gmail.com directly.'; }
+    finally{ btn.disabled=false; btn.textContent='Send message'; }
   });
 })();
 </script>
